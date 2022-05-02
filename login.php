@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(isset($_SESSION["id"])) {
+    header("Location:index.php");
+ }
 $success = false;
 $message = false;
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -10,12 +14,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $sql = "Select * from users where email='$email'";
     $stmt = $pdo->query($sql);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $user = $stmt->fetch(PDO::FETCH_OBJ);
     $isSuccess = 0;
 
 
     if($user) {
-        $hashedPassword = $user["password_"];
+        $hashedPassword = $user->password_;
         if (password_verify($_POST["motDePasse"], $hashedPassword)) {
             $isSuccess = 1;
         }
@@ -23,7 +27,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($isSuccess == 0) {
         $message = "Invalid Email or Password!";
     } else {
-        header("Location:  ./logged.php");
+      $_SESSION['id'] = $user->id;
+      $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
+        header("Location:  ./index.php");
     }
 }
 
@@ -43,7 +49,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
+  
 <?php
+  if(isset($_SESSION["id"])) {
+      echo $_SESSION["id"];
+  }
+
     if($message){
         echo '<h2>'.$message.'</h2>';
     }
