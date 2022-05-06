@@ -29,7 +29,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             $hash = password_hash($motDePasse, PASSWORD_DEFAULT);
                 
             // Password Hashing is used here. 
-            $sql = "INSERT INTO `users` ( `prenom`, `nom`, `email`, `sexe`, `password_`, `date_naissance`) VALUES ('$prenom', '$nom', '$email', '$sexe', '$hash', current_timestamp())";
+            echo $sexe;
+            $sql = "INSERT INTO `users` ( `prenom`, `nom`, `email`, `sexe`, `password_`) VALUES ('$prenom', '$nom', '$email', '$sexe', '$hash')";
     
             $stmt = $pdo->prepare($sql);
             $inserted = $stmt->execute();
@@ -75,7 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Responsive Registration Form</h2>
+        <h2>Inscription Form</h2>
       </div>
       <div class="row clearfix">
         <div class="">
@@ -100,9 +101,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
 
             <div class="input_field radio_option">
-              <input type="radio" name="sexe" id="rd1" value="H">
+              <input type="radio" name="sexe" id="rd1" value="H" required>
               <label for="rd1">Homme</label>
-              <input type="radio" name="sexe" id="rd2" value="F">
+              <input type="radio" name="sexe" id="rd2" value="F" required>
               <label for="rd2">Femme</label>
             </div>
             
@@ -112,12 +113,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <input class="button" type="submit" value="Register" />
           </form>
+          <div class="devMembre"><a href="login.php">Connexion</a></div>
+
         </div>
       </div>
     </div>
   </div>
 
-  <!-- <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script> -->
+  <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script>
 </body>
 
 

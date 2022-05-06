@@ -1,7 +1,11 @@
 body {
     font-family: Verdana, Geneva, sans-serif;
-    font-size: 14px;
     background: #f2f2f2;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+
 }
 .clearfix:after {
     content: "";
@@ -383,4 +387,322 @@ body {
     .remember_me {
         padding-bottom: 20px;
    }
+}
+
+
+.error-messsage{
+    color: #d23030;
+    font-size: 12px;
+}
+
+
+.responsive-table {
+    width: 100%;
+    margin-bottom: 1.5em;
+    border-spacing: 0;
+}
+@media (min-width: 48em) {
+    .responsive-table {
+        font-size: 0.9em;
+   }
+}
+@media (min-width: 62em) {
+    .responsive-table {
+        font-size: 1em;
+   }
+}
+header{
+   display: flex;
+   height: 52px;
+   background-color: #f5ba1a;
+   justify-content: space-between;
+   align-items: center;
+   padding: 0 20px;
+}
+header p{
+   border-right: 1px solid #d2a834;
+   border-left: 1px solid #d2a834;
+   padding: 3px 10px;
+   font-size: 20px;
+   color: #454a4a;
+}
+header h3{
+   color: #95a5a6;
+   font-size: 18px;
+}
+.responsive-table thead {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+   /* IE6, IE7 */
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+}
+@media (min-width: 48em) {
+    .responsive-table thead {
+        position: relative;
+        clip: auto;
+        height: auto;
+        width: auto;
+        overflow: auto;
+   }
+}
+.responsive-table thead th {
+   background-color: #f5ba1a;
+   border: 1px solid #d2a834;
+    font-weight: normal;
+    text-align: center;
+    color: white;
+}
+.responsive-table thead th:first-of-type {
+    text-align: left;
+}
+.responsive-table tbody, .responsive-table tr, .responsive-table th, .responsive-table td {
+    display: block;
+    padding: 0;
+    text-align: left;
+    white-space: normal;
+}
+@media (min-width: 48em) {
+    .responsive-table tr {
+        display: table-row;
+   }
+}
+.responsive-table th, .responsive-table td {
+    padding: 0.5em;
+    vertical-align: middle;
+}
+@media (min-width: 30em) {
+    .responsive-table th, .responsive-table td {
+        padding: 0.75em 0.5em;
+   }
+}
+@media (min-width: 48em) {
+    .responsive-table th, .responsive-table td {
+        display: table-cell;
+        padding: 0.5em;
+   }
+}
+@media (min-width: 62em) {
+    .responsive-table th, .responsive-table td {
+        padding: 0.75em 0.5em;
+   }
+}
+@media (min-width: 75em) {
+    .responsive-table th, .responsive-table td {
+        padding: 0.75em;
+   }
+}
+.responsive-table caption {
+    margin-bottom: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+}
+@media (min-width: 48em) {
+    .responsive-table caption {
+        font-size: 1.5em;
+   }
+}
+.responsive-table tfoot {
+    font-size: 0.8em;
+    font-style: italic;
+}
+@media (min-width: 62em) {
+    .responsive-table tfoot {
+        font-size: 0.9em;
+   }
+}
+@media (min-width: 48em) {
+    .responsive-table tbody {
+        display: table-row-group;
+   }
+}
+.responsive-table tbody tr {
+    margin-bottom: 1em;
+}
+@media (min-width: 48em) {
+    .responsive-table tbody tr {
+        display: table-row;
+        border-width: 1px;
+   }
+}
+.responsive-table tbody tr:last-of-type {
+    margin-bottom: 0;
+}
+@media (min-width: 48em) {
+    .responsive-table tbody tr:nth-of-type(even) {
+        background-color: rgba(0, 0, 0, .12);
+   }
+}
+.responsive-table tbody th[scope="row"] {
+    background-color: rgba(38, 137, 13, 1);
+    color: white;
+}
+@media (min-width: 30em) {
+    .responsive-table tbody th[scope="row"] {
+        border-left: 1px solid rgba(134, 188, 37, 1);
+        border-bottom: 1px solid rgba(134, 188, 37, 1);
+   }
+}
+@media (min-width: 48em) {
+    .responsive-table tbody th[scope="row"] {
+        background-color: transparent;
+        color: rgba(0, 0, 1, );
+        text-align: left;
+   }
+}
+.responsive-table tbody td {
+    text-align: right;
+}
+@media (min-width: 48em) {
+    .responsive-table tbody td {
+        border-left: 1px solid #d2a834;
+        border-bottom: 1px solid #d2a834;
+        text-align: center;
+   }
+}
+@media (min-width: 48em) {
+    .responsive-table tbody td:last-of-type {
+        border-right: 1px solid #d2a834;
+   }
+}
+.responsive-table tbody td[data-type=currency] {
+    text-align: right;
+}
+.responsive-table tbody td[data-title]:before {
+    content: attr(data-title);
+    float: left;
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, .54);
+}
+@media (min-width: 30em) {
+    .responsive-table tbody td[data-title]:before {
+        font-size: 0.9em;
+   }
+}
+@media (min-width: 48em) {
+    .responsive-table tbody td[data-title]:before {
+        content: none;
+   }
+}
+
+
+body {
+   font-family: 'lato', sans-serif;
+}
+.container {
+   max-width: 1000px;
+   margin-left: auto;
+   margin-right: auto;
+   padding-left: 10px;
+   padding-right: 10px;
+}
+h2 {
+   font-size: 22px;
+   margin: 20px 0;
+   text-align: center;
+   color: #95a5a6;
+}
+h2 small {
+   font-size: 0.5em;
+}
+.responsive-table li {
+   border-radius: 3px;
+   padding: 10px 15px;
+   display: flex;
+   margin-bottom: 6px;
+}
+.responsive-table .table-header {
+   background-color: #95a5a6;
+   font-size: 14px;
+   text-transform: uppercase;
+   letter-spacing: 0.03em;
+}
+.responsive-table .table-row {
+   background-color: #fff;
+   box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+   height: auto;
+}
+.responsive-table .col-1 {
+   width: 20%;
+}
+.responsive-table .col-2 {
+   width: 20%;
+}
+.responsive-table .col-3 {
+   width: 60%;
+   word-wrap: break-word;
+   text-align: center;
+}
+@media all and (max-width: 767px) {
+   .responsive-table .table-header {
+       display: none;
+  }
+   .responsive-table li {
+       display: block;
+  }
+   .responsive-table .col {
+       flex-basis: 100%;
+  }
+   .responsive-table .col {
+       display: flex;
+       padding: 10px 0;
+  }
+   .responsive-table .col:before {
+       color: #6c7a89;
+       padding-right: 10px;
+       content: attr(data-label);
+       flex-basis: 50%;
+       text-align: right;
+  }
+}
+
+
+
+/* button voter style  */
+/* bo */
+ a.voter {
+   text-decoration: none;
+   border: 1px solid #d2a834;
+   padding: 2px 18px;
+   font-size: 15px;
+   font-family: sans-serif;
+   letter-spacing: 1px;
+   border-radius: 20px;
+   color: #95a5a6;
+   font-weight: 800;
+   background-color: transparent;
+   transition: all .5s;
+ }
+ a.voter:hover {
+     background-color: #95a5a6;
+     color: #f5ba1a;
+ }
+
+a.logout{
+   color: #95a5a6;
+   text-decoration: none;
+   font-size: 15px;
+   font-weight: 600;
+}
+
+
+.voted_candidat{
+   text-align: center;
+   font-size: 35px;
+   font-weight: 600;
+   color: #95a5a6;
+   text-decoration: underline
+}
+
+.devMembre{
+    float: right;
+    margin-top: 10px;
+}
+.devMembre a{
+    color: #f2ba18;
+    font-size: 13px;
 }

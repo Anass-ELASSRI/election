@@ -1,0 +1,27 @@
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `prenom` varchar(30) NOT NULL,
+  `email` varchar(30) NOT NULL,
+  `password_` char(60) NOT NULL,
+  `sexe` VARCHAR(1) NOT NULL,
+  `type` VARCHAR(10) NOT NULL  DEFAULT 'user',
+  PRIMARY KEY (id)
+)
+
+
+CREATE TABLE `candidat` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(30) NOT NULL,
+  `prenom` varchar(30) NOT NULL,
+  `text_presentation` varchar(200) DEFAULT NULL,
+  PRIMARY KEY (id)
+)
+
+CREATE TABLE `vote` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_electeur` int(11) DEFAULT NULL,
+  `id_candidat` int(11) DEFAULT NULL,
+   PRIMARY KEY (id)
+)

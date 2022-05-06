@@ -19,20 +19,20 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     if($user) {
-      $hashedPassword = $user->password_;
-      if (password_verify($_POST["motDePasse"], $hashedPassword)) {
-          if ($user->type == "user"){
-              $_SESSION['id'] = $user->id;
-              $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
-              header("Location:  ./index.php");
-          }else{
-              $message = "utilisateur ne peut acceder cette page";
+        $hashedPassword = $user->password_;
+        if (password_verify($_POST["motDePasse"], $hashedPassword)) {
+            if ($user->type == "admin"){
+                $_SESSION['id'] = $user->id;
+                $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
+                header("Location:  ./adminDashboard.php");
+            }else{
+                $message = "utilisateur ne peut acceder cette page";
 
-          }
-      }
-  }else{
-      $message = "Invalid Email or Password!";
-  }
+            }
+        }
+    }else{
+        $message = "Invalid Email or Password!";
+    }
 }
 
 
@@ -51,17 +51,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-  
-<?php
-  if(isset($_SESSION["id"])) {
-      echo $_SESSION["id"];
-  }
-
-?>
-  <div class="form_wrapper">
+    <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Login Form</h2>
+        <h2>Admin Login Form</h2>
       </div>
       <div class="row clearfix">
         <div class="">
@@ -82,8 +75,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         
           ?>
-          
-          <div class="devMembre"><a href="registration.php">Devenir Membre</a></div>
+          <p>Si vous etes pas inscri click <a href="registration.php">ici</a></p>
         </div>
       </div>
     </div>
