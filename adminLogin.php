@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
     <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Admin Login Form</h2>
+        <h2>For Security purposes please try to Log again</h2>
       </div>
       <div class="row clearfix">
         <div class="">
@@ -75,7 +75,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
         
           ?>
-          <p>Si vous etes pas inscri click <a href="registration.php">ici</a></p>
         </div>
       </div>
     </div>

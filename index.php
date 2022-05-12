@@ -33,6 +33,7 @@ if(isset($_SESSION["id"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rank</title>
     <link rel="stylesheet" href="style.css">    
+
 </head>
 <body>
     <header>
@@ -47,7 +48,7 @@ if(isset($_SESSION["id"])) {
         </div>
     </header>
 
-
+<button id="voter">test</button>
 
     <div class="container">
   <h2>Top 3 Candidats</h2>
@@ -76,7 +77,12 @@ if(isset($_SESSION["id"])) {
 
 
 
-
+<style>
+  .test{
+    display: block;
+    border: 1px solid #f2ba18;
+    width: 56px;  }
+</style>
 
 
 
@@ -103,7 +109,7 @@ if(isset($_SESSION["id"])) {
                         <td>".$i."</td>
                         <td>$candidat->prenom</td>
                         <td>$candidat->nom</td>      
-                        <td><a class='voter' href='voter.php?id=$candidat->id'>Voter</a>
+                        <td><buttton class='test' onclick='voter($candidat->id)' class='voter'>Test</buttton><br><a class='voter' href='voter.php?id=$candidat->id'>Voter</a>
                         </td>      
                     </tr>
                     ";
@@ -123,7 +129,38 @@ if(isset($_SESSION["id"])) {
             }
 ?>
                         
+                        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                        <script>
+                            var btn = document.getElementById("voter");
+                              btn.onclick = function () {
+                                Swal.fire({
+  title: 'Error!',
+  text: 'Do you want to continue',
+  icon: 'error',
+  confirmButtonText: 'Cool'
+})
+                            };
 
+function voter(id_candidat) {
+  Swal.fire({
+
+  icon:'question',
+  title: 'Do you vote to this person',
+  showDenyButton: true,
+  showCancelButton: false,
+  confirmButtonText: 'Voter',
+  denyButtonText: `Anuller`,
+
+  
+}).then((result) => {
+  /* Read more about isConfirmed, isDenied below */
+  if (result.isConfirmed) {
+    Swal.fire('Saved!', '', 'success')
+  } 
+})
+}
+                        </script>
 
 </body>
 </html>

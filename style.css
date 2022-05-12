@@ -77,13 +77,23 @@ a{
     text-align: center;
     width: 30px;
 }
+.form_wrapper .input_field:nth-child(2) > span {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #333;
+    height: 94%;
+    border-right: 1px solid #ccc;
+    text-align: center;
+    width: 30px;
+}
 .form_wrapper .input_field > span > i {
     padding-top: 10px;
 }
 .form_wrapper .textarea_field > span > i {
     padding-top: 10px;
 }
-.form_wrapper input[type="text"], .form_wrapper input[type="email"], .form_wrapper input[type="password"] {
+.form_wrapper input[type="text"], .form_wrapper input[type="email"], .form_wrapper input[type="password"] , .form_wrapper textarea{
     width: 100%;
     padding: 8px 10px 9px 35px;
     height: 35px;
@@ -94,6 +104,11 @@ a{
     -moz-transition: all 0.3s ease-in-out;
     -ms-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+}
+.form_wrapper textarea{
+    min-height: 70px;
+    resize: vertical;
+    max-height: 100px;
 }
 .form_wrapper input[type="text"]:hover, .form_wrapper input[type="email"]:hover, .form_wrapper input[type="password"]:hover {
     background: #fafafa;

@@ -26,8 +26,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
               header("Location:  ./index.php");
           }else{
-              $message = "utilisateur ne peut acceder cette page";
-
+            header("Location:  ./adminLogin.php");
           }
       }
   }else{
