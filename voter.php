@@ -2,7 +2,7 @@
 session_start();
 include 'dbh.php';
 
-            $id_candidat=$_GET['id'];
+            $id_candidat=$_POST['id'];
             $id= $_SESSION['id'];
 
             $sql = "INSERT INTO `vote`( `id_electeur`, `id_candidat`) VALUES ('".$id."','$id_candidat');";

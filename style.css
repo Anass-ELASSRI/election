@@ -7,6 +7,22 @@ a{
     text-decoration: none;
 
 }
+.btn-primary{
+    border: 1px solid #ff8e2e;
+    cursor: pointer;
+    color: #1d1f1f;
+    font-size: 14px;
+    padding: 4px 7px;
+    border-radius: 24px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+}
+.btn-primary:hover{
+    background-color: #ff8e2e;
+    color: white;
+}
 .clearfix:after {
     content: "";
     display: block;
@@ -120,7 +136,7 @@ a{
     border: 1px solid #f5ba1a;
     background: #fafafa;
 }
-.form_wrapper input[type="submit"] {
+.form_wrapper input[type="submit"],.btn-flat {
     background: #f5ba1a;
     height: 35px;
     line-height: 35px;
@@ -626,7 +642,7 @@ h2 small {
 }
 .responsive-table li {
    border-radius: 3px;
-   padding: 10px 15px;
+   padding: 7px 15px;
    display: flex;
    margin-bottom: 6px;
 }
@@ -679,20 +695,19 @@ h2 small {
 
 /* button voter style  */
 /* bo */
- a.voter {
-   text-decoration: none;
-   border: 1px solid #d2a834;
-   padding: 2px 18px;
-   font-size: 15px;
-   font-family: sans-serif;
-   letter-spacing: 1px;
-   border-radius: 20px;
-   color: #95a5a6;
-   font-weight: 800;
-   background-color: transparent;
-   transition: all .5s;
+ buttton.voter {
+    border: 1px solid #d2a834;
+    padding: 0px 13px;
+    font-size: 12px;
+    font-family: sans-serif;
+    letter-spacing: 1px;
+    border-radius: 20px;
+    color: #95a5a6;
+    font-weight: 800;
+    background-color: transparent;
+    transition: all .5s;
  }
- a.voter:hover {
+ buttton.voter:hover {
      background-color: #95a5a6;
      color: #f5ba1a;
  }

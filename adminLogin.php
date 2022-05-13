@@ -1,38 +1,43 @@
 <?php
 session_start();
-if(isset($_SESSION["id"])) {
-    header("Location:index.php");
- }
+if (isset($_SESSION["id"])) {
+  if ($_SESSION['type'] == "admin") {
+    header("Location:  ./adminDashboard.php");
+  } else {
+    header("Location:  ./index.php");
+  }
+}
 $success = false;
 $message = false;
-if($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    include 'dbh.php';
+  include 'dbh.php';
 
-    $email = $_POST["email"];
-    $motDePasse = $_POST["motDePasse"];
-    
-    $sql = "Select * from users where email='$email'";
-    $stmt = $pdo->query($sql);
-    $user = $stmt->fetch(PDO::FETCH_OBJ);
-    $isSuccess = 0;
+  $email = $_POST["email"];
+  $motDePasse = $_POST["motDePasse"];
+
+  $sql = "Select * from users where email='$email'";
+  $stmt = $pdo->query($sql);
+  $user = $stmt->fetch(PDO::FETCH_OBJ);
+  $isSuccess = 0;
 
 
-    if($user) {
-        $hashedPassword = $user->password_;
-        if (password_verify($_POST["motDePasse"], $hashedPassword)) {
-            if ($user->type == "admin"){
-                $_SESSION['id'] = $user->id;
-                $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
-                header("Location:  ./adminDashboard.php");
-            }else{
-                $message = "utilisateur ne peut acceder cette page";
+  if ($user) {
+    if ($user->type == 'admin') {
 
-            }
-        }
-    }else{
-        $message = "Invalid Email or Password!";
+      $hashedPassword = $user->password_;
+      if (password_verify($_POST["motDePasse"], $hashedPassword)) {
+        $_SESSION['id'] = $user->id;
+        $_SESSION['type'] = 'admin';
+        $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
+        header("Location:  ./adminDashboard.php");
+      }
+    } else {
+      $message = "User can not log in!";
     }
+  } else {
+    $message = "Invalid Email or Password!";
+  }
 }
 
 
@@ -51,10 +56,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <div class="form_wrapper">
+  <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>For Security purposes please try to Log again</h2>
+        <h2>Admin login</h2>
       </div>
       <div class="row clearfix">
         <div class="">
@@ -66,14 +71,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               <input type="password" name="motDePasse" placeholder="Mot De Passe" required />
             </div>
 
-            
+
             <input class="button" type="submit" value="Login" />
           </form>
-          <?php 
-              if($message){
-                echo '<div class="error-messsage">'. $message .'</div>';
-            }
-        
+          <?php
+          if ($message) {
+            echo '<div class="error-messsage">' . $message . '</div>';
+          }
+
           ?>
         </div>
       </div>
@@ -81,7 +86,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   </div>
 
   <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script>
-  </body>
+</body>
 
 
 </html>
