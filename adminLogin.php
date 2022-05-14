@@ -50,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Inscription</title>
+  <title>Administrateur Connexion</title>
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -59,20 +59,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Admin login</h2>
+        <h2>Administrateur connexion</h2>
       </div>
       <div class="row clearfix">
         <div class="">
           <form method="post" action="" name="loginForm">
-            <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-              <input type="email" name="email" placeholder="Email" required />
+          <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
+              <input type="email" name="email" placeholder="Adresse e-mail" required />
             </div>
             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-              <input type="password" name="motDePasse" placeholder="Mot De Passe" required />
+              <input type="password" name="motDePasse" placeholder="Mot de passe" required />
             </div>
 
 
-            <input class="button" type="submit" value="Login" />
+            <input class="button" type="submit" value="Se connecter" />
           </form>
           <?php
           if ($message) {
@@ -80,6 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           }
 
           ?>
+          <div class="devMembre"><a href="login.php">Si vous êtes utilisateur</a></div>
+
         </div>
       </div>
     </div>

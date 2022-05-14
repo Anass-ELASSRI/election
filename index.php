@@ -52,7 +52,6 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
     }
 
     .profil-pic {
-      background: red;
       border-radius: 50%;
       overflow: hidden;
       border: 1px solid #f5ba1a;
@@ -141,19 +140,27 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
 
 
   <div class="container">
-    <h2>Top 3 Candidats</h2>
+    <h2>Top Candidats</h2>
     <ul class="responsive-table">
       <li class="table-header">
         <div class="col col-1">N° Votes</div>
         <div class="col col-2">Nom Candidat</div>
-        <div class="col col-3">text</div>
+        <div class="col col-3">genre</div>
+        <div class="col col-4">presentation</div>
       </li>
       <?php
       foreach ($premiers as $candidat) {
+        if($candidat->sexe == 'H'){
+          $sexShow = 'Homme';
+        }else{
+          $sexShow = 'Femme';
+
+        }
         echo "<li class='table-row'>
                 <div class='col col-1'>$candidat->NBR_VOTE</div>
                 <div class='col col-2'>$candidat->nom $candidat->prenom</div>
-                <div class='col col-3'>$candidat->text_presentation</div>
+                <div class='col col-3'>$sexShow</div>
+                <div class='col col-4'>$candidat->text_presentation</div>
               </li>";
       }
       ?>
@@ -169,50 +176,6 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
 
 
 
-
-
-  <?php
-  if (!$voted) {
-    echo '
-
-    <div class="container">
-  <table class="responsive-table">
-    <caption>Tous les candidats</caption>
-    <thead>
-      <tr>
-        <th scope="col"></th>
-        <th scope="col">Prenom candidat</th>
-        <th scope="col">Nom condidat</th>
-        <th scope="col">Voter</th>
-      </tr>
-    </thead>
-    <tbody>';
-    $i = "1";
-    foreach ($candidats as $candidat) {
-      echo "      <tr>
-                        <td>" . $i . "</td>
-                        <td>$candidat->prenom</td>
-                        <td>$candidat->nom</td>      
-                        <td><buttton onclick='voter($candidat->id)' class='voter'>Voter</buttton>
-                        </td>      
-                    </tr>
-                    ";
-      $i++;
-    }
-
-
-    echo "
-    </tbody>
-  </table>
-</div>";
-  } else {
-    $sql4 = "select * from candidat where id=" . $voted->id_candidat;
-    $stmt4 = $pdo->query($sql4);
-    $candidat_voted = $stmt4->fetch(PDO::FETCH_OBJ);
-    echo "<div><p class='voted_candidat'>vous avez deja vote à $candidat_voted->nom $candidat_voted->prenom</p></div>";
-  }
-  ?>
-  
 
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
@@ -260,6 +223,7 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
 <?php
   if (!$voted) {
     echo '<div class="container">
+    <h2>Tous Les Candidats</h2>
              <div class="grid-container">';
       foreach ($candidats as $candidat) {
         echo "  <div class='grid-item'>
@@ -287,7 +251,37 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       }
     echo '</div>
   </div>';
+    }else {
+      $sql4 = "select * from candidat where id=" . $voted->id_candidat;
+      $stmt4 = $pdo->query($sql4);
+      $candidat_voted = $stmt4->fetch(PDO::FETCH_OBJ);
+      echo "<div><p class='voted_candidat'>vous avez deja vote à $candidat_voted->nom $candidat_voted->prenom</p></div>";
     }
+  ?>
+  <?php 
+    if(isset($_SESSION['voted-success'])){
+    echo '<script type="text/JavaScript"> 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "bottom-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer)
+        toast.addEventListener("mouseleave", Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: "success",
+      title: "Vous avez votez"
+    })
+        </script>';
+        
+
+  }
+  unset($_SESSION['voted-success']);
   ?>
 </body>
 

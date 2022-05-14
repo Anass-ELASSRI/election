@@ -12,6 +12,8 @@ include 'dbh.php';
     $sql = "DELETE FROM `candidat` WHERE id = $id_candidat";
     $stmt = $pdo->prepare($sql);
     $stmt->execute();
+    $_SESSION['deleted-success'] = true;
+
     header('Location: adminDashboard.php');
 
 ?>

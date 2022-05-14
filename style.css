@@ -1,7 +1,12 @@
+*{
+    margin: 0;
+    box-sizing: border-box;
+}
 body {
     font-family: Verdana, Geneva, sans-serif;
     background: #f2f2f2;
-    box-sizing: border-box;
+    font-family: 'lato', sans-serif;
+
 }
 a{
     text-decoration: none;
@@ -621,9 +626,6 @@ header h3{
 }
 
 
-body {
-   font-family: 'lato', sans-serif;
-}
 .container {
    max-width: 1000px;
    margin-left: auto;
@@ -658,13 +660,19 @@ h2 small {
    height: auto;
 }
 .responsive-table .col-1 {
-   width: 20%;
+    text-align: center;
+   width: 15%;
 }
 .responsive-table .col-2 {
-   width: 20%;
+    text-align: center;
+   width: 15%;
 }
 .responsive-table .col-3 {
-   width: 60%;
+    text-align: center;
+   width: 15%;
+}
+.responsive-table .col-4 {
+   width: 50%;
    word-wrap: break-word;
    text-align: center;
 }
@@ -729,10 +737,29 @@ a.logout{
 }
 
 .devMembre{
-    float: right;
+    /* float: right; */
     margin-top: 10px;
+    width: 100%;
+    display: block;
 }
 .devMembre a{
     color: #f2ba18;
     font-size: 13px;
+}
+.devMembre a:nth-child(2){
+    float: right;
+}
+
+.deleteButton{
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 17px;
+}
+
+.grid-row{
+    display: flex;
+    justify-content: space-around;
+
 }

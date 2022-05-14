@@ -8,6 +8,8 @@ include 'dbh.php';
             $sql = "INSERT INTO `vote`( `id_electeur`, `id_candidat`) VALUES ('".$id."','$id_candidat');";
             $stmt = $pdo->prepare($sql);
             $stmt->execute();
+            $_SESSION['voted-success'] = true;
+
             header('Location: index.php');
 
         ?>

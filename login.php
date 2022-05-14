@@ -7,7 +7,8 @@ if (isset($_SESSION["id"])) {
     header("Location:  ./index.php");
   }
 }
-$success = false;
+
+
 $message = false;
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -41,8 +42,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 
-?>
 
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -50,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion</title>
+  <title>Utilisateur Connexion</title>
   <link rel="stylesheet" href="style.css">
 
 </head>
@@ -59,20 +61,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Login Form</h2>
+        <h2>Connexion</h2>
       </div>
       <div class="row clearfix">
         <div class="">
           <form method="post" action="" name="loginForm">
             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-              <input type="email" name="email" placeholder="Email" required />
+              <input type="email" name="email" placeholder="Adresse e-mail" required />
             </div>
             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-              <input type="password" name="motDePasse" placeholder="Mot De Passe" required />
+              <input type="password" name="motDePasse" placeholder="Mot de passe" required />
             </div>
 
 
-            <input class="button" type="submit" value="Login" />
+            <input class="button" type="submit" value="Se connecter" />
           </form>
           <?php
           if ($message) {
@@ -81,13 +83,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           ?>
 
-          <div class="devMembre"><a href="registration.php">Devenir Membre</a></div>
+          <div class="devMembre"><a href="adminLogin.php">Si vous êtes administrateur</a><a href="registration.php">Devenir Membre</a></div>
         </div>
       </div>
     </div>
   </div>
-
+  
   <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script>
+  
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <?php 
+    if(isset($_SESSION['register-success'])){
+    echo '<script type="text/JavaScript"> 
+    const Toast = Swal.mixin({
+      toast: true,
+      position: "top-end",
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true,
+      didOpen: (toast) => {
+        toast.addEventListener("mouseenter", Swal.stopTimer)
+        toast.addEventListener("mouseleave", Swal.resumeTimer)
+      }
+    })
+    
+    Toast.fire({
+      icon: "success",
+      title: "Inscription réussie"
+    })
+        </script>';
+        
+
+  }
+  unset($_SESSION['register-success']);
+  ?>
 </body>
 
 

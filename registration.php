@@ -39,6 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       $stmt = $pdo->prepare($sql);
       $inserted = $stmt->execute();
       if ($inserted) {
+        $_SESSION['register-success'] = true;
         header("Location:  ./login.php");
       }
     }
@@ -80,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <div class="form_wrapper">
     <div class="form_container">
       <div class="title_container">
-        <h2>Inscription Form</h2>
+        <h2>Inscription</h2>
       </div>
       <div class="row clearfix">
         <div class="">
@@ -98,11 +99,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
               </div>
             </div>
             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-envelope"></i></span>
-              <input type="email" name="email" placeholder="Email" required />
+              <input type="email" name="email" placeholder="Adresse e-mail" required />
 
             </div>
             <div class="input_field"> <span><i aria-hidden="true" class="fa fa-lock"></i></span>
-              <input type="password" name="motDePasse" placeholder="Mot De Passe" required />
+              <input type="password" name="motDePasse" placeholder="Mot de pass" required />
 
             </div>
 
@@ -127,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
           ?>
 
-          <div class="devMembre"><a href="login.php">Connexion</a></div>
+          <div class="devMembre"><a style="float:right;" href="login.php">Connexion</a></div>
 
         </div>
       </div>
