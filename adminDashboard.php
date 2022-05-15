@@ -219,10 +219,10 @@ $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
               </div>
 
               <div class="input_field radio_option">
-                <input type="radio" name="sexe" id="rd1" value="H" required>
-                <label for="rd1">Homme</label>
-                <input type="radio" name="sexe" id="rd2" value="F" required>
-                <label for="rd2">Femme</label>
+                <input id="homme" type="radio" name="sexe" value="H" required>
+                <label for="homme">Homme</label>
+                <input id="femme" type="radio" name="sexe" value="F" required>
+                <label for="femme">Femme</label>
               </div>
 
               <input class="button" type="submit" value="Enregistrer" />
@@ -280,6 +280,8 @@ $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
       })
     }
     function editCandidat(id, prenom, nom, sexe, presentation) {
+      const homme = document.getElementById('homme');
+      const femme = document.getElementById('femme');
       var prenomInput = document.getElementById("edit-prenom");
       var nomInput = document.getElementById("edit-nom");
       var sexeRadio = document.getElementById("edit-sexe");
@@ -289,7 +291,13 @@ $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
       nomInput.value = nom;
       presentationInput.value = presentation;
       prenomInput.value = prenom;
-      document.editform.sexe.value = sexe;
+      if (sexe == 'H'){
+        homme.checked = true;
+
+      }else{
+        femme.checked = true;
+
+      }
       document.editform.id.value = id;
       editModal.style.display = "block";
 
@@ -366,7 +374,7 @@ $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
     
       
             }
-        if(isset($_SESSION['edit-success'])){
+        if(isset($_SESSION['edited-success'])){
           echo "<script type='text/JavaScript'> 
           const Toast = Swal.mixin({
             toast: true,
@@ -385,7 +393,7 @@ $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
             title: 'vous avez modifieé cette candidat'
           })
               </script>";
-              unset($_SESSION['edit-success']);
+              unset($_SESSION['edited-success']);
     
       
             }
