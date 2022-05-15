@@ -30,6 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['id'] = $user->id;
         $_SESSION['type'] = 'admin';
         $_SESSION['nomComplete'] = $user->prenom . " " . $user->nom;
+
         header("Location:  ./adminDashboard.php");
       }
     } else {

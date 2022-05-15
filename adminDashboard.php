@@ -7,23 +7,12 @@ if (!isset($_SESSION["id"])) {
     header("Location:  ./index.php");
   }
 }
+$nom = $_SESSION["nomComplete"];
+
 include 'dbh.php';
-$added = false;
 $sql = "select A.*, (Select count(B.ID) from vote AS B where B.id_candidat =A.id) AS NBR_VOTE  From candidat AS A order by NBR_VOTE DESC";
 $stmt = $pdo->query($sql);
 $candidats = $stmt->fetchAll(PDO::FETCH_OBJ);
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-  $nom = $_POST['nom'];
-  $prenom = $_POST['prenom'];
-  $text_presentation = $_POST['text_presentation'];
-  $sexe = $_POST['sexe'];
-  $query = "INSERT INTO `candidat` (`id`, `nom`, `prenom`, `text_presentation`, `sexe`) VALUES (NULL, '$nom', '$prenom', '$text_presentation', '$sexe');";
-  $stmt2 = $pdo->query($query);
-  $added = true;
-
-
-  // header('Location:adminDashboard.php');
-}
 
 
 ?>
@@ -40,12 +29,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 </head>
 
 <body>
-  <header>
+<header>
     <div>
-      <h3>Election</h3>
+      <img src="./img/logo.png">
     </div>
     <div>
-      <a class='logout' href="logout.php">Deconnecter</a>
+      <?php
+      echo "<p>" . $nom . "</p>";
+      ?>
+    </div>
+    <div>
+      <a class='logout' href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
     </div>
   </header>
 
@@ -147,7 +141,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <td>$candidat->text_presentation</td>      
                         <td>$candidat->NBR_VOTE</td>      
                         <td><div class='grid-row'><button class='deleteButton' onclick='deleteCandidat($candidat->id)'><i class='fa fa-trash' aria-hidden='true'></i></button>
-                        <button onclick='editCandidat()' class='deleteButton'><i class='fa fa-pencil' aria-hidden='true'></i></button></div></td>      
+                        <button onclick='editCandidat(\"$candidat->id\",\"$candidat->prenom\",\"$candidat->nom\",\"$candidat->sexe\",\"$candidat->text_presentation\")' class='deleteButton'><i class='fa fa-pencil' aria-hidden='true'></i></button></div></td>      
                     </tr>";
           $i++;
         }
@@ -165,7 +159,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="row clearfix">
           <div class="">
-            <form method="post" action="" name="addForm">
+            <form method="post" action="addCandidat.php" name="addForm">
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
@@ -189,7 +183,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="rd2">Femme</label>
               </div>
 
-              <input class="button" type="submit" value="Ajouter" />
+              <input class="btn-flat" type="submit" value="Ajouter" />
             </form>
 
           </div>
@@ -206,21 +200,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
         <div class="row clearfix">
           <div class="">
-            <form method="put" action="" name="editform">
+            <form method="post" action="editCandidat.php" name="editform">
+              <input type="hidden" name="id">
               <div class="row clearfix">
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                    <input type="text" name="prenom" placeholder="Prenom" required />
+                    <input id="edit-prenom" type="text" name="prenom" placeholder="Prenom" required />
                   </div>
                 </div>
                 <div class="col_half">
                   <div class="input_field"> <span><i aria-hidden="true" class="fa fa-user"></i></span>
-                    <input type="text" name="nom" placeholder="Nom" required />
+                    <input id="edit-nom" type="text" name="nom" placeholder="Nom" required />
                   </div>
                 </div>
               </div>
               <div class="input_field"> <span><i aria-hidden="true" class="fa fa-file-text"></i></span>
-                <textarea name="text_presentation" placeholder="Text presentation"></textarea>
+                <textarea id="edit-presentation" name="text_presentation" placeholder="Text presentation"></textarea>
               </div>
 
               <div class="input_field radio_option">
@@ -230,7 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <label for="rd2">Femme</label>
               </div>
 
-              <input class="button" type="submit" value="Modifier" />
+              <input class="button" type="submit" value="Enregistrer" />
             </form>
 
           </div>
@@ -241,20 +236,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   </tbody>
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>
-    function post(params) {
+    function post(action, method,  params) {
 
       // The rest of this code assumes you are not using a library.
       // It can be made less verbose if you use one.
       const form = document.createElement('form');
-      form.method = 'post';
-      form.action = 'deleteCandidat.php';
+      form.method = method;
+      form.action = action;
 
-      const hiddenField = document.createElement('input');
-      hiddenField.type = 'hidden';
-      hiddenField.name = 'id';
-      hiddenField.value = params;
-
-      form.appendChild(hiddenField);
+      Object.keys(params).forEach(key => {
+        console.log(key, params[key]);
+        const hiddenField = document.createElement('input');
+        hiddenField.type = 'hidden';
+        hiddenField.name = key;
+        hiddenField.value = params[key];
+  
+        form.appendChild(hiddenField);
+      });
 
       document.body.appendChild(form);
       form.submit();
@@ -277,12 +275,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          post(id_candidat);
+          post('deleteCandidat.php', 'post', {'id':id_candidat});
         }
       })
     }
-    function editCandidat() {
+    function editCandidat(id, prenom, nom, sexe, presentation) {
+      var prenomInput = document.getElementById("edit-prenom");
+      var nomInput = document.getElementById("edit-nom");
+      var sexeRadio = document.getElementById("edit-sexe");
+      var presentationInput = document.getElementById("edit-presentation");
       var editModal = document.getElementById("edit-modal");
+      prenomInput.value = prenom;
+      nomInput.value = nom;
+      presentationInput.value = presentation;
+      prenomInput.value = prenom;
+      document.editform.sexe.value = sexe;
+      document.editform.id.value = id;
       editModal.style.display = "block";
 
 
@@ -311,28 +319,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     };
   </script>
    <?php 
-    if($added){
-      echo "<script type='text/JavaScript'> 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-        didOpen: (toast) => {
-          toast.addEventListener('mouseenter', Swal.stopTimer)
-          toast.addEventListener('mouseleave', Swal.resumeTimer)
-        }
-      })
-      
-      Toast.fire({
-        icon: 'success',
-        title: 'vous avez ajouté cette candidat'
-      })
-          </script>";
-          
   
-        }
         if(isset($_SESSION['deleted-success'])){
           echo "<script type='text/JavaScript'> 
           const Toast = Swal.mixin({
@@ -356,6 +343,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
           unset($_SESSION['deleted-success']);
           
         }
+        if(isset($_SESSION['added-success'])){
+          echo "<script type='text/JavaScript'> 
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'vous avez ajouté cette candidat'
+          })
+              </script>";
+              unset($_SESSION['added-success']);
+    
+      
+            }
+        if(isset($_SESSION['edit-success'])){
+          echo "<script type='text/JavaScript'> 
+          const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener('mouseenter', Swal.stopTimer)
+              toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+          })
+          
+          Toast.fire({
+            icon: 'success',
+            title: 'vous avez modifieé cette candidat'
+          })
+              </script>";
+              unset($_SESSION['edit-success']);
+    
+      
+            }
   ?>
   <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script>
 

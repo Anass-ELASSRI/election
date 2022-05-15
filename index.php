@@ -126,7 +126,7 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
 <body>
   <header>
     <div>
-      <h3>Election</h3>
+      <img src="./img/logo.png">
     </div>
     <div>
       <?php
@@ -134,7 +134,7 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       ?>
     </div>
     <div>
-      <a class='logout' href="logout.php">Deconnecter</a>
+      <a class='logout' href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
     </div>
   </header>
 
@@ -283,6 +283,8 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
   }
   unset($_SESSION['voted-success']);
   ?>
+    <script src="https://use.fontawesome.com/4ecc3dbb0b.js"></script>
+
 </body>
 
 </html>
