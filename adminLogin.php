@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location:  ./adminDashboard.php");
       }
     } else {
-      $message = "User can not log in!";
+      $message = "Utilisateur ne peut pas accéder cette page";
     }
   } else {
     $message = "Invalid Email or Password!";

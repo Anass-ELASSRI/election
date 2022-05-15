@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 if (isset($_SESSION["id"])) {
   if ($_SESSION['type'] == "admin") {
     header("Location:  ./adminDashboard.php");
@@ -34,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         header("Location:  ./index.php");
       }
     } else {
-      $message = "Admin can not log in!";
+      $message = "Administrateur ne peut pas accéder cette page";
     }
   } else {
     $message = "Invalid Email or Password!";

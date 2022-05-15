@@ -46,9 +46,9 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       position: relative;
       background-color: rgba(255, 255, 255, 0.8);
       border: 1px solid #d2a834;
-      height: 350px;
+      height: 250px;
       display: grid;
-      grid-template-rows: 70% 30%;
+      grid-template-rows: 85% 10%;
     }
 
     .profil-pic {
@@ -65,15 +65,13 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
 
     .profil-text {
       border-top: 1px solid #d2a834;
-      padding: 8px 7px;
+    padding: 10px;
+    text-align: center;
     }
 
     .text-content {
-      font-size: 14px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      display: inline-block;
-      height: 65px;
+      font-size: 16px;
+     font-weight: 600;
       text-align: center;
     }
 
@@ -82,7 +80,7 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       bottom: 100%;
       left: 0;
       right: 0;
-      background-color: #f5ba1a;
+      background-color: #121212d4;
       overflow: hidden;
       width: 100%;
       height: 0;
@@ -95,16 +93,27 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
     }
 
     .overlay-content {
-      color: white;
-      font-size: 18px;
-      position: absolute;
-      overflow: hidden;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-      width: 100%;
-    text-align: center;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 100%;
+    padding: 15px;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto auto;
+    }
+    .overlay-content .presentation{
+      color: #ede2ba;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: justify;
+    }
+    .overlay-content .btn-container{
+      text-align: center;
+      align-self: end;
     }
 
     .btn-voter{
@@ -113,13 +122,31 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
     background-color: #6c7676;
     padding: 6px 25px;
     font-size: 15px;
-    margin: auto;
     color: #f0c445;
-    /* width: 100%; */
     text-transform: uppercase;
-    margin-top: 10px;
     cursor: pointer;
     }
+    .fuller-button {
+      cursor: pointer;
+      text-transform: uppercase;
+font-weight: 600;
+      color: white;
+    background: none;
+    border-radius: 0;
+    padding: 7px 40px;
+    letter-spacing: 4.2px;
+    font-size: 15px;
+    transition: background-color 0.3s, box-shadow 0.3s, color 0.3s;
+}
+.fuller-button.blue {
+  box-shadow: inset 0 0 1em rgb(245 211 91 / 50%), 0 0 1em rgb(245 211 91 / 50%);
+    border: var(--color-primary) solid 2px;
+}
+.fuller-button.blue:hover {
+  background-color: var(--color-primary);
+  box-shadow: inset 0 0 0 rgb(245 211 91 / 70%), 0 0 1.5em rgb(245 211 91 / 70%);
+}
+
   </style>
 </head>
 
@@ -137,7 +164,6 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       <a class='logout' href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
     </div>
   </header>
-
 
   <div class="container">
     <h2>Top Candidats</h2>
@@ -202,7 +228,7 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       Swal.fire({
 
         icon: 'question',
-        title: 'Do you vote to this person',
+        text: 'Voulez-vous voter pour cette personne',
         showDenyButton: true,
         showCancelButton: false,
         confirmButtonText: 'Voter',
@@ -212,7 +238,6 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
       }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-          Swal.fire('Saved!', '', 'success');
           post(id_candidat);
         }
       })
@@ -237,15 +262,15 @@ $voted = $stmt3->fetch(PDO::FETCH_OBJ);
                echo "</div>
                 <div class='profil-text'>
                   <div class='text-content'>
-                    $candidat->text_presentation
+                  $candidat->prenom $candidat->nom
                   </div>
                 </div>
                 <div class='overlay'>
-                <div class='overlay-content'>
+                  <div class='overlay-content'>
                 
-                <div class='name'>$candidat->prenom $candidat->nom</div>
-                <button onclick='voter($candidat->id)' class='btn-voter'>Voter</button>
-                </div>
+                    <div class='presentation'>$candidat->text_presentation</div>
+                    <div class='btn-container'><button onclick='voter($candidat->id)' class='pure-button fuller-button blue'>Voter</button></div>
+                  </div>
                 </div>
               </div>";
       }
